@@ -13,7 +13,6 @@ public class DriverFactory extends ExternalResource {
         if ("firefox".equals(browserName)) {
             driver = new FirefoxDriver();
         } else {
-            System.setProperty("webdriver.chrome.driver", "C:\\WebDrivers\\bin\\chromedriver.exe");
             driver = new ChromeDriver();
         }
     }

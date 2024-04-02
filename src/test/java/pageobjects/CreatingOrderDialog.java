@@ -1,5 +1,6 @@
-package page_objects;
+package pageobjects;
 
+import org.junit.Assert;
 import org.openqa.selenium.*;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
@@ -19,7 +20,7 @@ public class CreatingOrderDialog {
     private final By dayOptionDiv = By.xpath("//div[text()='сутки']");
     private final By colorInput = By.id("black");
     private final By commentInput = By.xpath("//input[@placeholder='Комментарий для курьера']");
-    private final By orderButton = By.xpath("//button[text()='Заказать']");
+    private final By orderButton = By.xpath("//button[text()='Назад']/following-sibling::button[text()='Заказать']");
     private final By yesButton = By.xpath("//button[text()='Да']");
 
     public CreatingOrderDialog(WebDriver driver) {
@@ -76,5 +77,9 @@ public class CreatingOrderDialog {
 
     public void clickYesButton() {
         driver.findElement(yesButton).click();
+    }
+
+    public void checkOrderIsCreated() {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[text()='Заказ оформлен']")).isDisplayed());
     }
 }

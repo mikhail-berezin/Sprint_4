@@ -4,13 +4,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import page_objects.CreatingOrderDialog;
-import page_objects.HomePage;
+import pageobjects.CreatingOrderDialog;
+import pageobjects.HomePage;
+
+import static constants.SamokatTestConstants.MAIN_PAGE_URL;
 
 @RunWith(Parameterized.class)
 public class SamokatCreateOrderTest {
     @Rule
-    public DriverFactory driverFactory = new DriverFactory("");
+    public DriverFactory driverFactory = new DriverFactory("firefox");
 
     private final String firstName;
     private final String lastName;
@@ -31,16 +33,16 @@ public class SamokatCreateOrderTest {
     }
 
     @Parameterized.Parameters
-    public static Object[][] getAccordionData() {
+    public static Object[][] getOrderData() {
         return new Object[][] {
                 { "Иван", "Петров", "Москва, проезд Соломенной Сторожки, дом 3", "Динамо", "+79999999999", "01.06.2024", "Благодарю Вас!"},
-                { "Пётр", "Иванов", "Москва, Сарокалужское шоссе, дом 1", "Калужская", "89876543210", "31.05.2024", "ЛУЧШИХ САМОКАТОВ НЕ БЫЛО И НЕТ ГОТОВ КАТИТЬ ДО СТАРЫХ ЛЕТ"}
+                { "Пётр", "Иванов", "Москва, Старокалужское шоссе, дом 1", "Калужская", "89876543210", "31.05.2024", "ЛУЧШИХ САМОКАТОВ НЕ БЫЛО И НЕТ ГОТОВ КАТИТЬ ДО СТАРЫХ ЛЕТ"}
         };
     }
 
     @Before
     public void init() {
-        driverFactory.getDriver().get("https://qa-scooter.praktikum-services.ru/");
+        driverFactory.getDriver().get(MAIN_PAGE_URL);
     }
 
     @Test
@@ -62,5 +64,6 @@ public class SamokatCreateOrderTest {
         creatingOrderDialog.inputComment(comment);
         creatingOrderDialog.clickOrderButton();
         creatingOrderDialog.clickYesButton();
+        creatingOrderDialog.checkOrderIsCreated();
     }
 }
